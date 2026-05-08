@@ -8,6 +8,7 @@ import '../blocs/cart/cart_state.dart';
 import '../blocs/navigation/navigation_bloc.dart';
 import '../blocs/wishlist/wishlist_bloc.dart';
 import '../screens/home/home_screen.dart';
+import '../screens/shop/shop_screen.dart';
 import '../screens/cart/cart_screen.dart';
 import '../screens/wishlist/wishlist_screen.dart';
 import '../screens/account/account_screen.dart';
@@ -20,6 +21,7 @@ class AppShell extends StatelessWidget {
   Widget build(BuildContext context) {
     final screens = [
       const HomeScreen(),
+      const ShopScreen(),
       const WishlistScreen(),
       const CartScreen(),
       const AccountScreen(),
@@ -62,10 +64,11 @@ class AppShell extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: [
               _navItem(context, 0, currentIndex, Icons.home_rounded),
+              _navItem(context, 1, currentIndex, Icons.storefront_rounded),
               _navItem(
-                  context, 1, currentIndex, Icons.favorite_outline_rounded),
-              _navItem(context, 2, currentIndex, Icons.shopping_bag_outlined),
-              _navItem(context, 3, currentIndex, Icons.person_outline_rounded),
+                  context, 2, currentIndex, Icons.favorite_outline_rounded),
+              _navItem(context, 3, currentIndex, Icons.shopping_bag_outlined),
+              _navItem(context, 4, currentIndex, Icons.person_outline_rounded),
             ],
           ),
         ),
@@ -119,6 +122,13 @@ class AppShell extends StatelessWidget {
         ],
       );
     } else if (index == 1) {
+      // Shop
+      iconWidget = Icon(
+        isActive ? Icons.storefront_rounded : Icons.storefront_outlined,
+        color: Colors.white,
+        size: 26,
+      );
+    } else if (index == 2) {
       // Wishlist
       iconWidget = Stack(
         alignment: Alignment.center,
@@ -136,7 +146,7 @@ class AppShell extends StatelessWidget {
             ),
         ],
       );
-    } else if (index == 2) {
+    } else if (index == 3) {
       // Cart
       iconWidget = Icon(
         isActive ? Icons.shopping_bag_rounded : Icons.shopping_bag_outlined,
@@ -145,7 +155,7 @@ class AppShell extends StatelessWidget {
       );
     } else {
       iconWidget = Icon(
-        index == 3 ? Icons.person_outline_rounded : icon,
+        index == 4 ? Icons.person_outline_rounded : icon,
         color: Colors.white,
         size: 26,
       );

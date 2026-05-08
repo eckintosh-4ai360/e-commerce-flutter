@@ -85,7 +85,7 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
                       product: filteredProducts[i],
                       onTap: () => _openProduct(context, filteredProducts[i]),
                     ),
-                    childCount: filteredProducts.length,
+                    childCount: filteredProducts.length > 4 ? 4 : filteredProducts.length,
                   ),
                   gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
                     crossAxisCount: 2,
@@ -171,7 +171,7 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
           icon:
               const Icon(Icons.shopping_bag_outlined, color: AppTheme.primary),
           onPressed: () =>
-              context.read<NavigationBloc>().add(const NavigateTo(2)),
+              context.read<NavigationBloc>().add(const NavigateTo(3)),
         ),
         if (state.totalItems > 0)
           Positioned(
@@ -405,14 +405,12 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
             ),
           ),
           const SizedBox(width: 12),
-          SingleChildScrollView(
-            child: Expanded(
-              child: _buildCategoryBanner(
-                'Accessories',
-                '7 Products',
-                AppTheme.badge,
-                Icons.watch_outlined,
-              ),
+          Expanded(
+            child: _buildCategoryBanner(
+              'Accessories',
+              '7 Products',
+              AppTheme.badge,
+              Icons.watch_outlined,
             ),
           ),
         ],
