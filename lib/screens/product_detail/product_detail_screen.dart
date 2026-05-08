@@ -206,8 +206,8 @@ class _ProductDetailScreenState extends State<ProductDetailScreen> {
           padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
           decoration: BoxDecoration(
             color: p.inStock
-                ? AppTheme.success.withOpacity(0.1)
-                : AppTheme.error.withOpacity(0.1),
+                ? AppTheme.success.withValues(alpha: 0.1)
+                : AppTheme.error.withValues(alpha: 0.1),
             borderRadius: BorderRadius.circular(4),
           ),
           child: Text(
@@ -476,7 +476,7 @@ class _ProductDetailScreenState extends State<ProductDetailScreen> {
                         width: 40,
                         height: 40,
                         decoration: BoxDecoration(
-                          color: AppTheme.accent.withOpacity(0.15),
+                          color: AppTheme.accent.withValues(alpha: 0.15),
                           borderRadius: BorderRadius.circular(8),
                         ),
                         child: Icon(f.$1, color: AppTheme.accent, size: 20),
@@ -510,7 +510,7 @@ class _ProductDetailScreenState extends State<ProductDetailScreen> {
         color: AppTheme.surface,
         boxShadow: [
           BoxShadow(
-            color: Colors.black.withOpacity(0.08),
+            color: Colors.black.withValues(alpha: 0.08),
             blurRadius: 20,
             offset: const Offset(0, -4),
           ),

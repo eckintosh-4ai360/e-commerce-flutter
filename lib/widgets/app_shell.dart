@@ -44,7 +44,7 @@ class AppShell extends StatelessWidget {
       padding: const EdgeInsets.all(8),
       color: Colors.transparent,
       child: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 30),
+        padding: const EdgeInsets.symmetric(horizontal: 20),
         child: Container(
           height: 60,
           decoration: BoxDecoration(
@@ -62,9 +62,9 @@ class AppShell extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: [
               _navItem(context, 0, currentIndex, Icons.home_rounded),
-              _navItem(context, 1, currentIndex, Icons.search_rounded),
               _navItem(
-                  context, 2, currentIndex, Icons.favorite_outline_rounded),
+                  context, 1, currentIndex, Icons.favorite_outline_rounded),
+              _navItem(context, 2, currentIndex, Icons.shopping_bag_outlined),
               _navItem(context, 3, currentIndex, Icons.person_outline_rounded),
             ],
           ),
@@ -81,6 +81,7 @@ class AppShell extends StatelessWidget {
   ) {
     final isActive = index == currentIndex;
 
+    // Custom icon for Home (Shoe with motion lines)
     Widget iconWidget;
     if (index == 0) {
       iconWidget = Stack(
@@ -117,8 +118,8 @@ class AppShell extends StatelessWidget {
           ),
         ],
       );
-    } else if (index == 2) {
-      // Wishlist with checkmark-like feel
+    } else if (index == 1) {
+      // Wishlist
       iconWidget = Stack(
         alignment: Alignment.center,
         children: [
@@ -128,14 +129,23 @@ class AppShell extends StatelessWidget {
             size: 26,
           ),
           if (isActive)
-            const Positioned(
-              child: Icon(Icons.check, size: 10, color: Colors.black),
+            const Icon(
+              Icons.check,
+              color: Colors.black,
+              size: 16,
             ),
         ],
       );
+    } else if (index == 2) {
+      // Cart
+      iconWidget = Icon(
+        isActive ? Icons.shopping_bag_rounded : Icons.shopping_bag_outlined,
+        color: Colors.white,
+        size: 26,
+      );
     } else {
       iconWidget = Icon(
-        index == 3 ? Icons.account_circle_outlined : icon,
+        index == 3 ? Icons.person_outline_rounded : icon,
         color: Colors.white,
         size: 26,
       );

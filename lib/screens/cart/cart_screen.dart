@@ -4,8 +4,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
 import '../../blocs/cart/cart_bloc.dart';
-import '../../blocs/cart/cart_event.dart';
-import '../../blocs/cart/cart_state.dart';
 import '../../blocs/navigation/navigation_bloc.dart';
 import '../../models/cart_item.dart';
 import '../../theme/app_theme.dart';
@@ -16,7 +14,7 @@ class CartScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.transparent,
+      backgroundColor: AppTheme.background,
       appBar: AppBar(
         title: const Text('My Cart'),
         backgroundColor: Colors.transparent,

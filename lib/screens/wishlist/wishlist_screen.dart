@@ -14,7 +14,7 @@ class WishlistScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.transparent,
+      backgroundColor: AppTheme.cardBg,
       appBar: AppBar(
         title: const Text('Wishlist'),
         backgroundColor: Colors.transparent,
@@ -43,8 +43,8 @@ class WishlistScreen extends StatelessWidget {
                           fontSize: 24, fontWeight: FontWeight.w600)),
                   const SizedBox(height: 8),
                   Text('Save your favourite pieces here',
-                      style:
-                          GoogleFonts.kumbhSans(color: AppTheme.textMed, fontSize: 13)),
+                      style: GoogleFonts.kumbhSans(
+                          color: AppTheme.textMed, fontSize: 13)),
                   const SizedBox(height: 28),
                   ElevatedButton(
                     onPressed: () =>

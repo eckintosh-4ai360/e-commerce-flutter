@@ -1,6 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import '../../theme/app_theme.dart';
+import '../orders/orders_screen.dart';
+import '../order_tracking/order_tracking_screen.dart';
+import 'returns_refunds_screen.dart';
+import 'edit_profile_screen.dart';
+import 'delivery_addresses_screen.dart';
+import 'payment_methods_screen.dart';
+import 'faq_help_screen.dart';
 
 class AccountScreen extends StatelessWidget {
   const AccountScreen({super.key});
@@ -8,7 +15,7 @@ class AccountScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.transparent,
+      backgroundColor: AppTheme.cardBg,
       appBar: AppBar(
         title: const Text('Account'),
         backgroundColor: Colors.transparent,
@@ -22,25 +29,37 @@ class AccountScreen extends StatelessWidget {
             const SizedBox(height: 28),
             _buildOrderTracking(context),
             const SizedBox(height: 20),
-            _buildMenuSection('Shopping', [
-              (Icons.receipt_long_outlined, 'My Orders', null),
-              (Icons.local_shipping_outlined, 'Track Order', null),
-              (Icons.replay, 'Returns & Refunds', null),
+            _buildMenuSection(context, 'Shopping', [
+              (Icons.receipt_long_outlined, 'My Orders', const OrdersScreen()),
+              (
+                Icons.local_shipping_outlined,
+                'Track Order',
+                const OrderTrackingScreen()
+              ),
+              (Icons.replay, 'Returns & Refunds', const ReturnsRefundsScreen()),
             ]),
             const SizedBox(height: 16),
-            _buildMenuSection('Account', [
-              (Icons.person_outline, 'Edit Profile', null),
-              (Icons.location_on_outlined, 'Delivery Addresses', null),
-              (Icons.payment_outlined, 'Payment Methods', null),
+            _buildMenuSection(context, 'Account', [
+              (Icons.person_outline, 'Edit Profile', const EditProfileScreen()),
+              (
+                Icons.location_on_outlined,
+                'Delivery Addresses',
+                const DeliveryAddressesScreen()
+              ),
+              (
+                Icons.payment_outlined,
+                'Payment Methods',
+                const PaymentMethodsScreen()
+              ),
             ]),
             const SizedBox(height: 16),
-            _buildMenuSection('Support', [
-              (Icons.phone_outlined, 'Call: +233 59 859 9687', '+233598599687'),
+            _buildMenuSection(context, 'Support', [
+              (Icons.phone_outlined, 'Call: +233 59 859 9687', null),
               (Icons.email_outlined, 'info@esiarkomall.com', null),
-              (Icons.help_outline, 'FAQ & Help Center', null),
+              (Icons.help_outline, 'FAQ & Help Center', const FaqHelpScreen()),
             ]),
             const SizedBox(height: 16),
-            _buildMenuSection('Follow Us', [
+            _buildMenuSection(context, 'Follow Us', [
               (Icons.camera_alt_outlined, 'Instagram @esiarkomall', null),
               (Icons.facebook_outlined, 'Facebook: Esiarkomall', null),
               (Icons.alternate_email, 'Twitter @esiarko_mall', null),
@@ -113,41 +132,49 @@ class AccountScreen extends StatelessWidget {
   }
 
   Widget _buildOrderTracking(BuildContext context) {
-    return Container(
-      padding: const EdgeInsets.all(16),
-      decoration: BoxDecoration(
-        color: AppTheme.accentLight,
-        borderRadius: BorderRadius.circular(12),
-        border: Border.all(color: AppTheme.accent.withValues(alpha: 0.3)),
-      ),
-      child: Row(
-        children: [
-          const Icon(Icons.local_shipping_outlined,
-              color: Color(0xFF8B6914), size: 28),
-          const SizedBox(width: 12),
-          Expanded(
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text('Track Your Order',
-                    style: GoogleFonts.kumbhSans(
-                        fontWeight: FontWeight.w700,
-                        fontSize: 14,
-                        color: AppTheme.textDark)),
-                Text('Enter your order ID to track delivery',
-                    style: GoogleFonts.kumbhSans(
-                        fontSize: 12, color: AppTheme.textMed)),
-              ],
+    return GestureDetector(
+      onTap: () {
+        Navigator.push(
+          context,
+          MaterialPageRoute(builder: (context) => const OrderTrackingScreen()),
+        );
+      },
+      child: Container(
+        padding: const EdgeInsets.all(16),
+        decoration: BoxDecoration(
+          color: AppTheme.accentLight,
+          borderRadius: BorderRadius.circular(12),
+          border: Border.all(color: AppTheme.accent.withValues(alpha: 0.3)),
+        ),
+        child: Row(
+          children: [
+            const Icon(Icons.local_shipping_outlined,
+                color: Color(0xFF8B6914), size: 28),
+            const SizedBox(width: 12),
+            Expanded(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text('Track Your Order',
+                      style: GoogleFonts.kumbhSans(
+                          fontWeight: FontWeight.w700,
+                          fontSize: 14,
+                          color: AppTheme.textDark)),
+                  Text('Enter your order ID to track delivery',
+                      style: GoogleFonts.kumbhSans(
+                          fontSize: 12, color: AppTheme.textMed)),
+                ],
+              ),
             ),
-          ),
-          const Icon(Icons.chevron_right, color: AppTheme.textMed),
-        ],
+            const Icon(Icons.chevron_right, color: AppTheme.textMed),
+          ],
+        ),
       ),
     );
   }
 
-  Widget _buildMenuSection(
-      String title, List<(IconData, String, String?)> items) {
+  Widget _buildMenuSection(BuildContext context, String title,
+      List<(IconData, String, Widget?)> items) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -192,7 +219,14 @@ class AccountScreen extends StatelessWidget {
                             fontSize: 13, fontWeight: FontWeight.w500)),
                     trailing: const Icon(Icons.chevron_right,
                         size: 18, color: AppTheme.textLight),
-                    onTap: () {},
+                    onTap: () {
+                      if (item.$3 != null) {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(builder: (context) => item.$3!),
+                        );
+                      }
+                    },
                   ),
                   if (i < items.length - 1)
                     const Divider(indent: 66, height: 1),
