@@ -37,7 +37,7 @@ class _ProductDetailScreenState extends State<ProductDetailScreen> {
   Widget build(BuildContext context) {
     final p = widget.product;
     return Scaffold(
-      backgroundColor: Colors.transparent,
+      backgroundColor: AppTheme.surface,
       body: CustomScrollView(
         slivers: [
           _buildSliverAppBar(context, p),
@@ -296,7 +296,8 @@ class _ProductDetailScreenState extends State<ProductDetailScreen> {
             const SizedBox(width: 8),
             Text(
               _selectedColor ?? '',
-              style: GoogleFonts.kumbhSans(fontSize: 13, color: AppTheme.textMed),
+              style:
+                  GoogleFonts.kumbhSans(fontSize: 13, color: AppTheme.textMed),
             ),
           ],
         ),
@@ -530,8 +531,8 @@ class _ProductDetailScreenState extends State<ProductDetailScreen> {
                         ));
                     ScaffoldMessenger.of(context).showSnackBar(
                       SnackBar(
-                        content:
-                            Text('Added to cart!', style: GoogleFonts.kumbhSans()),
+                        content: Text('Added to cart!',
+                            style: GoogleFonts.kumbhSans()),
                         backgroundColor: AppTheme.primary,
                         behavior: SnackBarBehavior.floating,
                         shape: RoundedRectangleBorder(

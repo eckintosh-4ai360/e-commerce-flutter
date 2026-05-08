@@ -1,3 +1,5 @@
+// ignore_for_file: prefer_const_declarations
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -61,7 +63,7 @@ class CartScreen extends StatelessWidget {
           Container(
             width: 100,
             height: 100,
-            decoration: BoxDecoration(
+            decoration: const BoxDecoration(
               color: AppTheme.cardBg,
               shape: BoxShape.circle,
             ),
@@ -74,7 +76,8 @@ class CartScreen extends StatelessWidget {
                   fontSize: 24, fontWeight: FontWeight.w600)),
           const SizedBox(height: 8),
           Text('Discover our beautiful collection',
-              style: GoogleFonts.kumbhSans(color: AppTheme.textMed, fontSize: 13)),
+              style:
+                  GoogleFonts.kumbhSans(color: AppTheme.textMed, fontSize: 13)),
           const SizedBox(height: 28),
           ElevatedButton(
             onPressed: () =>
@@ -96,7 +99,7 @@ class CartScreen extends StatelessWidget {
         color: AppTheme.surface,
         boxShadow: [
           BoxShadow(
-            color: Colors.black.withOpacity(0.08),
+            color: Colors.black.withValues(alpha: 0.08),
             blurRadius: 20,
             offset: const Offset(0, -4),
           ),
@@ -127,7 +130,8 @@ class CartScreen extends StatelessWidget {
               padding: const EdgeInsets.only(bottom: 12),
               child: Row(
                 children: [
-                  const Icon(Icons.local_shipping, size: 16, color: AppTheme.success),
+                  const Icon(Icons.local_shipping,
+                      size: 16, color: AppTheme.success),
                   const SizedBox(width: 6),
                   Text(
                     'You qualify for free shipping! 🎉',
@@ -161,7 +165,8 @@ class CartScreen extends StatelessWidget {
                 onPressed: () => _showCheckoutDialog(context, state),
                 style: ElevatedButton.styleFrom(
                   backgroundColor: AppTheme.primary,
-                  padding: const EdgeInsets.symmetric(horizontal: 36, vertical: 16),
+                  padding:
+                      const EdgeInsets.symmetric(horizontal: 36, vertical: 16),
                 ),
                 child: const Text('CHECKOUT'),
               ),
@@ -223,8 +228,7 @@ class CartScreen extends StatelessWidget {
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       Expanded(
-                        child: Text(
-                            '${item.product.name} × ${item.quantity}',
+                        child: Text('${item.product.name} × ${item.quantity}',
                             style: GoogleFonts.kumbhSans(fontSize: 13)),
                       ),
                       Text(
@@ -258,7 +262,8 @@ class CartScreen extends StatelessWidget {
                   context.read<CartBloc>().add(ClearCart());
                   ScaffoldMessenger.of(context).showSnackBar(
                     SnackBar(
-                      content: Text('Order placed! We\'ll contact you shortly. Call +233 59 859 9687',
+                      content: Text(
+                          'Order placed! We\'ll contact you shortly. Call +233 59 859 9687',
                           style: GoogleFonts.kumbhSans()),
                       backgroundColor: AppTheme.success,
                       behavior: SnackBarBehavior.floating,
@@ -275,7 +280,8 @@ class CartScreen extends StatelessWidget {
             Center(
               child: Text(
                 'Contact us: +233 59 859 9687 | info@esiarkomall.com',
-                style: GoogleFonts.kumbhSans(fontSize: 11, color: AppTheme.textMed),
+                style: GoogleFonts.kumbhSans(
+                    fontSize: 11, color: AppTheme.textMed),
                 textAlign: TextAlign.center,
               ),
             ),
@@ -296,17 +302,17 @@ class _CartItemCard extends StatelessWidget {
     return Dismissible(
       key: Key('cart_${item.product.id}'),
       direction: DismissDirection.endToStart,
-      onDismissed: (_) => context
-          .read<CartBloc>()
-          .add(RemoveFromCart(item.product.id)),
+      onDismissed: (_) =>
+          context.read<CartBloc>().add(RemoveFromCart(item.product.id)),
       background: Container(
         alignment: Alignment.centerRight,
         padding: const EdgeInsets.only(right: 20),
         decoration: BoxDecoration(
-          color: AppTheme.error.withOpacity(0.1),
+          color: AppTheme.error.withValues(alpha: 0.1),
           borderRadius: BorderRadius.circular(12),
         ),
-        child: const Icon(Icons.delete_outline, color: AppTheme.error, size: 28),
+        child:
+            const Icon(Icons.delete_outline, color: AppTheme.error, size: 28),
       ),
       child: Container(
         margin: const EdgeInsets.only(bottom: 12),
@@ -316,7 +322,7 @@ class _CartItemCard extends StatelessWidget {
           borderRadius: BorderRadius.circular(12),
           boxShadow: [
             BoxShadow(
-              color: Colors.black.withOpacity(0.04),
+              color: Colors.black.withValues(alpha: 0.04),
               blurRadius: 8,
               offset: const Offset(0, 2),
             ),

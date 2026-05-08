@@ -25,13 +25,14 @@ class ProductCard extends StatelessWidget {
     return GestureDetector(
       onTap: onTap,
       child: SingleChildScrollView(
+        physics: const NeverScrollableScrollPhysics(),
         child: Container(
           decoration: BoxDecoration(
             color: AppTheme.surface,
             borderRadius: BorderRadius.circular(12),
             boxShadow: [
               BoxShadow(
-                color: Colors.black.withOpacity(0.05),
+                color: Colors.black.withValues(alpha: 0.05),
                 blurRadius: 10,
                 offset: const Offset(0, 4),
               ),
@@ -140,11 +141,11 @@ class ProductCard extends StatelessWidget {
                   decoration: BoxDecoration(
                     color: isWishlisted
                         ? AppTheme.primary
-                        : Colors.white.withOpacity(0.9),
+                        : Colors.white.withValues(alpha: 0.9),
                     shape: BoxShape.circle,
                     boxShadow: [
                       BoxShadow(
-                        color: Colors.black.withOpacity(0.1),
+                        color: Colors.black.withValues(alpha: 0.1),
                         blurRadius: 6,
                         offset: const Offset(0, 2),
                       ),
@@ -184,7 +185,7 @@ class ProductCard extends StatelessWidget {
           Row(
             children: [
               Text(
-                '₵${product.price.toStringAsFixed(0)}',
+                'GH₵${product.price.toStringAsFixed(0)}',
                 style: GoogleFonts.kumbhSans(
                   fontSize: compact ? 13 : 15,
                   fontWeight: FontWeight.w700,
@@ -194,7 +195,7 @@ class ProductCard extends StatelessWidget {
               if (product.originalPrice != null) ...[
                 const SizedBox(width: 6),
                 Text(
-                  '₵${product.originalPrice!.toStringAsFixed(0)}',
+                  'GH₵${product.originalPrice!.toStringAsFixed(0)}',
                   style: GoogleFonts.kumbhSans(
                     fontSize: 11,
                     color: AppTheme.textLight,
