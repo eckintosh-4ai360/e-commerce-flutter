@@ -85,7 +85,9 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
                       product: filteredProducts[i],
                       onTap: () => _openProduct(context, filteredProducts[i]),
                     ),
-                    childCount: filteredProducts.length > 4 ? 4 : filteredProducts.length,
+                    childCount: filteredProducts.length > 4
+                        ? 4
+                        : filteredProducts.length,
                   ),
                   gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
                     crossAxisCount: 2,
@@ -405,12 +407,14 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
             ),
           ),
           const SizedBox(width: 12),
-          Expanded(
-            child: _buildCategoryBanner(
-              'Accessories',
-              '7 Products',
-              AppTheme.badge,
-              Icons.watch_outlined,
+          SingleChildScrollView(
+            child: Expanded(
+              child: _buildCategoryBanner(
+                'Accessories',
+                '7 Products',
+                AppTheme.badge,
+                Icons.watch_outlined,
+              ),
             ),
           ),
         ],
