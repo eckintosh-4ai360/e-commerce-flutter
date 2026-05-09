@@ -18,12 +18,17 @@ From `backend/`:
 ```bash
 npm install
 npm run prisma:generate
-npm run db:init
+npm run db:push
 npm run db:seed
 npm run dev -- --hostname 0.0.0.0
 ```
 
 The backend runs on `http://localhost:3000`.
+
+Environment variables:
+
+- `DATABASE_URL`: pooled Neon connection string for the running app
+- `DIRECT_URL`: unpooled Neon connection string for Prisma schema commands
 
 Available endpoints:
 
@@ -55,5 +60,5 @@ flutter run --dart-define=API_BASE_URL=http://YOUR_IP:3000/api
 
 ## Notes
 
-- `npm run db:init` is included as a SQLite bootstrap step for this Windows setup.
-- The backend seed currently loads the same storefront products the Flutter demo used before the API integration.
+- The backend now targets Neon Postgres instead of the previous local SQLite setup.
+- The backend seed still loads the same storefront products the Flutter demo used before the API integration.
