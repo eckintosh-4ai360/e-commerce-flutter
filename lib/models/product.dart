@@ -1,5 +1,7 @@
 import 'package:equatable/equatable.dart';
 
+import '../config/app_config.dart';
+
 class Product extends Equatable {
   final int id;
   final String name;
@@ -43,7 +45,7 @@ class Product extends Equatable {
       price: (json['price'] as num).toDouble(),
       originalPrice: (json['originalPrice'] as num?)?.toDouble(),
       images: (json['images'] as List<dynamic>? ?? const [])
-          .map((image) => image.toString())
+          .map((image) => AppConfig.resolveMediaUrl(image.toString()))
           .toList(),
       category: json['category'] as String? ?? 'General',
       tags: (json['tags'] as List<dynamic>? ?? const [])

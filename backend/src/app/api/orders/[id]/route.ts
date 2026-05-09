@@ -1,4 +1,9 @@
-import { errorResponse, jsonResponse, optionsResponse } from '@/lib/http';
+import {
+  errorResponse,
+  getRequestOrigin,
+  jsonResponse,
+  optionsResponse,
+} from '@/lib/http';
 import { getPrisma } from '@/lib/prisma';
 import { serialiseOrder } from '@/lib/serializers';
 
@@ -27,7 +32,7 @@ export async function GET(request: Request, context: RouteContext) {
   }
 
   return jsonResponse({
-    order: serialiseOrder(order, new URL(request.url).origin),
+    order: serialiseOrder(order, getRequestOrigin(request)),
   });
 }
 

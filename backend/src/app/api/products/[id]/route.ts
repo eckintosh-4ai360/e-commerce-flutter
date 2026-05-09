@@ -1,4 +1,9 @@
-import { errorResponse, jsonResponse, optionsResponse } from '@/lib/http';
+import {
+  errorResponse,
+  getRequestOrigin,
+  jsonResponse,
+  optionsResponse,
+} from '@/lib/http';
 import { getPrisma } from '@/lib/prisma';
 import { serialiseProduct } from '@/lib/serializers';
 
@@ -26,7 +31,7 @@ export async function GET(request: Request, context: RouteContext) {
   }
 
   return jsonResponse({
-    product: serialiseProduct(product, new URL(request.url).origin),
+    product: serialiseProduct(product, getRequestOrigin(request)),
   });
 }
 
