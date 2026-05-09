@@ -12,6 +12,13 @@ function parseList(value: string) {
   }
 }
 
+function getImageUrl(imagePath: string, origin: string) {
+  if (imagePath.startsWith('/')) {
+    return new URL(imagePath, origin).toString();
+  }
+  return imagePath; // Return 'assets/...' or 'http...' as is
+}
+
 export function serialiseProduct(product: Product, origin: string) {
   return {
     id: product.id,
@@ -19,7 +26,7 @@ export function serialiseProduct(product: Product, origin: string) {
     description: product.description,
     price: product.price,
     originalPrice: product.originalPrice,
-    images: [new URL(product.imagePath, origin).toString()],
+    images: [getImageUrl(product.imagePath, origin)],
     category: product.category,
     tags: parseList(product.tags),
     rating: product.rating,
@@ -62,7 +69,7 @@ export function serialiseOrder(order: OrderWithItems, origin: string) {
       quantity: item.quantity,
       selectedColor: item.selectedColor,
       selectedSize: item.selectedSize,
-      imageUrl: new URL(item.product.imagePath, origin).toString(),
+      imageUrl: getImageUrl(item.product.imagePath, origin),
     })),
   };
 }
