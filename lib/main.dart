@@ -3,6 +3,7 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'blocs/catalog/catalog_cubit.dart';
 import 'blocs/cart/cart_bloc.dart';
 import 'blocs/navigation/navigation_bloc.dart';
 import 'blocs/wishlist/wishlist_bloc.dart';
@@ -44,6 +45,7 @@ class EckintoshApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MultiBlocProvider(
       providers: [
+        BlocProvider(create: (_) => CatalogCubit()..loadCatalog()),
         BlocProvider(create: (_) => CartBloc()),
         BlocProvider(create: (_) => WishlistBloc()),
         BlocProvider(create: (_) => NavigationBloc()),
