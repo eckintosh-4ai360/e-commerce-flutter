@@ -1,3 +1,5 @@
+import 'package:eckintosh/screens/cart/cart_screen.dart';
+import 'package:eckintosh/screens/orders/orders_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
@@ -566,15 +568,24 @@ class _ProductDetailScreenState extends State<ProductDetailScreen> {
                 ),
               ),
               const SizedBox(width: 12),
-              Container(
-                height: 54,
-                width: 54,
-                decoration: BoxDecoration(
-                  color: AppTheme.accent,
-                  borderRadius: BorderRadius.circular(8),
+              GestureDetector(
+                onTap: () {
+                  Navigator.of(context).push(
+                    MaterialPageRoute(
+                      builder: (_) => const CartScreen(),
+                    ),
+                  );
+                },
+                child: Container(
+                  height: 54,
+                  width: 54,
+                  decoration: BoxDecoration(
+                    color: AppTheme.accent,
+                    borderRadius: BorderRadius.circular(8),
+                  ),
+                  child: const Icon(Icons.shopping_bag_outlined,
+                      color: AppTheme.primary, size: 22),
                 ),
-                child: const Icon(Icons.shopping_bag_outlined,
-                    color: AppTheme.primary, size: 22),
               ),
             ],
           );

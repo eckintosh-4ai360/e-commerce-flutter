@@ -65,8 +65,9 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
         final selectedCategory =
             categories.contains(_selectedCategory) ? _selectedCategory : 'All';
         final filteredProducts = catalogState.byCategory(selectedCategory);
-        final showInitialLoader = catalogState.status == CatalogStatus.loading &&
-            catalogState.products.isEmpty;
+        final showInitialLoader =
+            catalogState.status == CatalogStatus.loading &&
+                catalogState.products.isEmpty;
         final showFatalError = catalogState.status == CatalogStatus.failure &&
             catalogState.products.isEmpty;
 
@@ -477,12 +478,14 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
         children: [
           for (int index = 0; index < featuredCategories.length; index++) ...[
             if (index > 0) const SizedBox(width: 12),
-            Expanded(
-              child: _buildCategoryBanner(
-                featuredCategories[index],
-                '${products.where((product) => product.category == featuredCategories[index]).length} Products',
-                bannerColors[index % bannerColors.length],
-                bannerIcons[index % bannerIcons.length],
+            SingleChildScrollView(
+              child: Expanded(
+                child: _buildCategoryBanner(
+                  featuredCategories[index],
+                  '${products.where((product) => product.category == featuredCategories[index]).length} Products',
+                  bannerColors[index % bannerColors.length],
+                  bannerIcons[index % bannerIcons.length],
+                ),
               ),
             ),
           ],
