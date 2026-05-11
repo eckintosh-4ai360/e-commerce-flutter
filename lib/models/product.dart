@@ -38,15 +38,15 @@ class Product extends Equatable {
   });
 
   factory Product.fromJson(Map<String, dynamic> json) {
+    final images = _extractImages(json);
+
     return Product(
       id: (json['id'] as num).toInt(),
       name: json['name'] as String,
       description: json['description'] as String? ?? '',
       price: (json['price'] as num).toDouble(),
       originalPrice: (json['originalPrice'] as num?)?.toDouble(),
-      images: (json['images'] as List<dynamic>? ?? const [])
-          .map((image) => AppConfig.resolveMediaUrl(image.toString()))
-          .toList(),
+      images: images,
       category: json['category'] as String? ?? 'General',
       tags: (json['tags'] as List<dynamic>? ?? const [])
           .map((tag) => tag.toString())
@@ -63,6 +63,95 @@ class Product extends Equatable {
       isNew: json['isNew'] as bool? ?? false,
       isBestSeller: json['isBestSeller'] as bool? ?? false,
     );
+  }
+
+  static List<String> _extractImages(Map<String, dynamic> json) {
+    final results = <String>[];
+
+    void addImage(dynamic value) {
+      final extracted = _extractImageValue(value);
+      if (extracted == null) {
+        return;
+      }
+
+      final resolved = AppConfig.resolveMediaUrl(extracted);
+      if (resolved.isEmpty || results.contains(resolved)) {
+        return;
+      }
+
+      results.add(resolved);
+    }
+
+    final rawImages = json['images'];
+    if (rawImages is List<dynamic>) {
+      for (final image in rawImages) {
+        addImage(image);
+      }
+    } else {
+      addImage(rawImages);
+    }
+
+    for (final fallbackKey in const [
+      'image',
+      'imageUrl',
+      'imageURL',
+      'imagePath',
+      'featuredImage',
+      'featuredImageUrl',
+      'featured_image',
+      'thumbnail',
+      'thumbnailUrl',
+      'thumbnailURL',
+    ]) {
+      addImage(json[fallbackKey]);
+    }
+
+    return results;
+  }
+
+  static String? _extractImageValue(dynamic value) {
+    if (value == null) {
+      return null;
+    }
+
+    if (value is String) {
+      final trimmed = value.trim();
+      if (trimmed.isEmpty || trimmed == 'null' || trimmed == 'undefined') {
+        return null;
+      }
+      return trimmed;
+    }
+
+    if (value is Map) {
+      for (final key in const [
+        'url',
+        'src',
+        'sourceUrl',
+        'source_url',
+        'imageUrl',
+        'image_url',
+        'secure_url',
+        'full',
+        'fullUrl',
+        'full_url',
+        'original',
+        'originalUrl',
+        'original_url',
+        'path',
+        'image',
+        'thumbnailUrl',
+        'thumbnail_url',
+        'thumbnail',
+        'data',
+      ]) {
+        final extracted = _extractImageValue(value[key]);
+        if (extracted != null) {
+          return extracted;
+        }
+      }
+    }
+
+    return null;
   }
 
   Map<String, dynamic> toJson() {
@@ -91,6 +180,17 @@ class Product extends Equatable {
     }
     return null;
   }
+
+  String? get primaryImage {
+    for (final image in images) {
+      if (image.trim().isNotEmpty) {
+        return image;
+      }
+    }
+    return null;
+  }
+
+  bool get hasPrimaryImage => primaryImage != null;
 
   @override
   List<Object?> get props => [id, name, price, originalPrice, images, category];

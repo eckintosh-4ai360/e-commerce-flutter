@@ -80,6 +80,8 @@ class _ProductDetailScreenState extends State<ProductDetailScreen> {
   }
 
   Widget _buildSliverAppBar(BuildContext context, Product p) {
+    final imagePath = p.primaryImage;
+
     return SliverAppBar(
       expandedHeight: 380,
       pinned: true,
@@ -134,16 +136,16 @@ class _ProductDetailScreenState extends State<ProductDetailScreen> {
         background: Stack(
           children: [
             Positioned.fill(
-              child: p.images.isEmpty
+              child: imagePath == null
                   ? _buildErrorImage()
-                  : p.images.first.startsWith('assets/')
+                  : imagePath.startsWith('assets/')
                       ? Image.asset(
-                          p.images.first,
+                          imagePath,
                           fit: BoxFit.cover,
                           errorBuilder: (_, __, ___) => _buildErrorImage(),
                         )
                       : CachedNetworkImage(
-                          imageUrl: p.images.first,
+                          imageUrl: imagePath,
                           fit: BoxFit.cover,
                           placeholder: (context, url) => Container(
                             color: AppTheme.cardBg,
