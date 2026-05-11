@@ -4,7 +4,7 @@ A high-end, **full-stack e-commerce platform** designed for a seamless shopping 
 
 ---
 
-## ✨ Features
+## Features
 
 - **Premium UI/UX**: Crafted with the **Kumbh Sans** typeface and fluid **Lottie** animations for a luxury feel.
 - **Dynamic Catalog**: Real-time product synchronization powered by **Next.js** and **Prisma**.
@@ -16,15 +16,17 @@ A high-end, **full-stack e-commerce platform** designed for a seamless shopping 
 
 ---
 
-## 🛠 Tech Stack
+## Tech Stack
 
 ### **Frontend (Mobile & Web)**
+
 - **Framework**: Flutter (Dart)
 - **State Management**: BLoC (Business Logic Component)
 - **Styling**: Custom Theme System, Google Fonts (Kumbh Sans)
 - **Animations**: Lottie, Animate_do, Flutter Staggered Animations
 
 ### **Backend (API & Database)**
+
 - **Framework**: Next.js (App Router)
 - **ORM**: Prisma
 - **Database**: PostgreSQL (Hosted on Neon)
@@ -32,22 +34,24 @@ A high-end, **full-stack e-commerce platform** designed for a seamless shopping 
 
 ---
 
-## 📸 Screenshots
+## Screenshots
 
-|                  Splash Screen                  |                  Home Feed                  |                  Product Details                  |
-| :---------------------------------------------: | :-----------------------------------------: | :-----------------------------------------------: |
+|              Splash Screen               |              Home Feed               |             Product Details              |
+| :--------------------------------------: | :----------------------------------: | :--------------------------------------: |
 | ![Splash](assets/screenshots/splash.png) | ![Home](assets/screenshots/home.png) | ![Detail](assets/screenshots/detail.png) |
 
 ---
 
-## 🚀 Installation & Setup
+## Installation & Setup
 
 ### **1. Prerequisites**
+
 - **Flutter SDK** (Latest stable version)
 - **Node.js** (v18 or higher)
 - **PostgreSQL** database (Local or Cloud like Neon.tech)
 
 ### **2. Backend & Database Setup**
+
 Navigate to the `backend` directory and follow these steps:
 
 ```bash
@@ -67,9 +71,11 @@ npx prisma db seed
 # Start the development server
 npm run dev -- --hostname 0.0.0.0
 ```
-*The backend will run on `http://localhost:3000`.*
+
+_The backend will run on `http://localhost:3000`._
 
 ### **3. Flutter Application**
+
 From the project root directory:
 
 ```bash
@@ -85,7 +91,7 @@ flutter run --dart-define=API_BASE_URL=http://your-ip-address:3000/api
 
 ---
 
-## 📅 Future Roadmap
+## Future Roadmap
 
 - [ ] **AI Recommendations**: Personalizing the shopping feed based on user behavior.
 - [ ] **Multi-Vendor Support**: Allowing third-party sellers to list products.
@@ -94,6 +100,6 @@ flutter run --dart-define=API_BASE_URL=http://your-ip-address:3000/api
 
 ---
 
-## 📄 License
+## License
 
 This project is licensed under the **MIT License** - see the [LICENSE](LICENSE) file for details.
