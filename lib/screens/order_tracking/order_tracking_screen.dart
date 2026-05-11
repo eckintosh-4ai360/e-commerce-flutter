@@ -79,7 +79,7 @@ class _OrderTrackingScreenState extends State<OrderTrackingScreen> {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Text(
-              'Enter your order ID to get updates on your delivery status.',
+              'Enter your full order ID or the short tracking code to get updates on your delivery status.',
               style: GoogleFonts.kumbhSans(
                 color: AppTheme.textMed,
                 fontSize: 14,
@@ -89,7 +89,7 @@ class _OrderTrackingScreenState extends State<OrderTrackingScreen> {
             TextField(
               controller: _controller,
               decoration: InputDecoration(
-                hintText: 'Order ID',
+                hintText: 'Order ID or tracking code',
                 hintStyle: GoogleFonts.kumbhSans(color: AppTheme.textLight),
                 prefixIcon: const Icon(Icons.search, color: AppTheme.textLight),
                 filled: true,
@@ -186,10 +186,18 @@ class _OrderTrackingScreenState extends State<OrderTrackingScreen> {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Text(
-                'Order ${order.id}',
+                'Order #${order.trackingCode}',
                 style: GoogleFonts.kumbhSans(
                   fontSize: 20,
                   fontWeight: FontWeight.w700,
+                ),
+              ),
+              const SizedBox(height: 10),
+              Text(
+                order.id,
+                style: GoogleFonts.kumbhSans(
+                  fontSize: 12,
+                  color: AppTheme.textLight,
                 ),
               ),
               const SizedBox(height: 10),
@@ -205,7 +213,7 @@ class _OrderTrackingScreenState extends State<OrderTrackingScreen> {
                       borderRadius: BorderRadius.circular(20),
                     ),
                     child: Text(
-                      order.status,
+                      order.displayStatus,
                       style: GoogleFonts.kumbhSans(
                         color: AppTheme.primary,
                         fontWeight: FontWeight.w700,
