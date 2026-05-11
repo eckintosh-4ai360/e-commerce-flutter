@@ -21,7 +21,8 @@ class OrderDetailsScreen extends StatelessWidget {
     return Scaffold(
       backgroundColor: AppTheme.background,
       appBar: AppBar(
-        title: Text('Order Details', style: GoogleFonts.kumbhSans(fontWeight: FontWeight.w600)),
+        title: Text('Order Details',
+            style: GoogleFonts.kumbhSans(fontWeight: FontWeight.w600)),
         backgroundColor: Colors.transparent,
         elevation: 0,
         centerTitle: true,
@@ -58,7 +59,8 @@ class OrderDetailsScreen extends StatelessWidget {
                         ),
                       ),
                       Container(
-                        padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
+                        padding: const EdgeInsets.symmetric(
+                            horizontal: 12, vertical: 6),
                         decoration: BoxDecoration(
                           color: statusColor.withValues(alpha: 0.1),
                           borderRadius: BorderRadius.circular(20),
@@ -77,11 +79,13 @@ class OrderDetailsScreen extends StatelessWidget {
                   const SizedBox(height: 12),
                   Row(
                     children: [
-                      Icon(Icons.calendar_today_outlined, size: 16, color: AppTheme.textMed),
+                      const Icon(Icons.calendar_today_outlined,
+                          size: 16, color: AppTheme.textMed),
                       const SizedBox(width: 8),
                       Text(
                         date,
-                        style: GoogleFonts.kumbhSans(color: AppTheme.textMed, fontSize: 14),
+                        style: GoogleFonts.kumbhSans(
+                            color: AppTheme.textMed, fontSize: 14),
                       ),
                     ],
                   ),
@@ -114,10 +118,14 @@ class OrderDetailsScreen extends StatelessWidget {
               ),
               child: Column(
                 children: [
-                  _buildTimelineStep('Order Placed', 'May 10, 2026 - 10:00 AM', true, true),
-                  _buildTimelineStep('Processing', 'May 10, 2026 - 11:30 AM', status != 'Cancelled', status != 'Cancelled'),
-                  _buildTimelineStep('Shipped', 'May 11, 2026 - 09:00 AM', status == 'Delivered', status == 'Delivered'),
-                  _buildTimelineStep('Delivered', 'May 12, 2026 - 02:00 PM', status == 'Delivered', false),
+                  _buildTimelineStep(
+                      'Order Placed', 'May 10, 2026 - 10:00 AM', true, true),
+                  _buildTimelineStep('Processing', 'May 10, 2026 - 11:30 AM',
+                      status != 'Cancelled', status != 'Cancelled'),
+                  _buildTimelineStep('Shipped', 'May 11, 2026 - 09:00 AM',
+                      status == 'Delivered', status == 'Delivered'),
+                  _buildTimelineStep('Delivered', 'May 12, 2026 - 02:00 PM',
+                      status == 'Delivered', false),
                 ],
               ),
             ),
@@ -143,7 +151,8 @@ class OrderDetailsScreen extends StatelessWidget {
                   decoration: BoxDecoration(
                     color: AppTheme.surface,
                     borderRadius: BorderRadius.circular(12),
-                    border: Border.all(color: Colors.grey.withValues(alpha: 0.1)),
+                    border:
+                        Border.all(color: Colors.grey.withValues(alpha: 0.1)),
                   ),
                   child: Row(
                     children: [
@@ -154,7 +163,8 @@ class OrderDetailsScreen extends StatelessWidget {
                           color: AppTheme.cardBg,
                           borderRadius: BorderRadius.circular(8),
                         ),
-                        child: const Icon(Icons.checkroom, color: AppTheme.primary, size: 30),
+                        child: const Icon(Icons.checkroom,
+                            color: AppTheme.primary, size: 30),
                       ),
                       const SizedBox(width: 16),
                       Expanded(
@@ -162,7 +172,9 @@ class OrderDetailsScreen extends StatelessWidget {
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             Text(
-                              index == 0 ? 'Premium Cotton T-Shirt' : 'Classic Denim Jeans',
+                              index == 0
+                                  ? 'Premium Cotton T-Shirt'
+                                  : 'Classic Denim Jeans',
                               style: GoogleFonts.kumbhSans(
                                 fontWeight: FontWeight.w600,
                                 fontSize: 15,
@@ -226,7 +238,8 @@ class OrderDetailsScreen extends StatelessWidget {
                       color: AppTheme.primary.withValues(alpha: 0.1),
                       shape: BoxShape.circle,
                     ),
-                    child: const Icon(Icons.location_on, color: AppTheme.primary, size: 20),
+                    child: const Icon(Icons.location_on,
+                        color: AppTheme.primary, size: 20),
                   ),
                   const SizedBox(width: 16),
                   Expanded(
@@ -320,7 +333,8 @@ class OrderDetailsScreen extends StatelessWidget {
     );
   }
 
-  Widget _buildTimelineStep(String title, String subtitle, bool isCompleted, bool isLast) {
+  Widget _buildTimelineStep(
+      String title, String subtitle, bool isCompleted, bool isLast) {
     return Row(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -332,7 +346,9 @@ class OrderDetailsScreen extends StatelessWidget {
               decoration: BoxDecoration(
                 color: isCompleted ? AppTheme.primary : AppTheme.cardBg,
                 shape: BoxShape.circle,
-                border: isCompleted ? null : Border.all(color: Colors.grey.withValues(alpha: 0.3)),
+                border: isCompleted
+                    ? null
+                    : Border.all(color: Colors.grey.withValues(alpha: 0.3)),
               ),
               child: isCompleted
                   ? const Icon(Icons.check, color: Colors.white, size: 14)
@@ -342,7 +358,9 @@ class OrderDetailsScreen extends StatelessWidget {
               Container(
                 width: 2,
                 height: 40,
-                color: isCompleted ? AppTheme.primary : Colors.grey.withValues(alpha: 0.2),
+                color: isCompleted
+                    ? AppTheme.primary
+                    : Colors.grey.withValues(alpha: 0.2),
               ),
           ],
         ),

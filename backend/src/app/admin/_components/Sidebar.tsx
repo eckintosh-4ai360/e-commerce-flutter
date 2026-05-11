@@ -39,7 +39,7 @@ export default function AdminSidebar() {
             fontSize: '18px', fontWeight: 700, color: '#000',
           }}>E</div>
           <div>
-            <div style={{ fontWeight: 700, fontSize: '15px', color: '#f5f5f5' }}>Esiarko</div>
+            <div style={{ fontWeight: 700, fontSize: '15px', color: '#f5f5f5' }}>Eckintosh</div>
             <div style={{ fontSize: '11px', color: '#a0a0a0' }}>Admin CMS</div>
           </div>
         </div>
@@ -80,7 +80,7 @@ export default function AdminSidebar() {
           <div style={{ width: '6px', height: '6px', borderRadius: '50%', backgroundColor: '#4ade80' }} />
           API Live on port 3000
         </div>
-        Esiarkomall Backend v1.0
+        Eckintoshmall Backend v1.0
       </div>
     </aside>
   );

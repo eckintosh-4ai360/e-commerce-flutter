@@ -10,7 +10,8 @@ class FaqHelpScreen extends StatelessWidget {
     return Scaffold(
       backgroundColor: AppTheme.background,
       appBar: AppBar(
-        title: Text('FAQ & Help Center', style: GoogleFonts.kumbhSans(fontWeight: FontWeight.w600)),
+        title: Text('FAQ & Help Center',
+            style: GoogleFonts.kumbhSans(fontWeight: FontWeight.w600)),
         backgroundColor: Colors.transparent,
         elevation: 0,
       ),
@@ -66,7 +67,7 @@ class FaqHelpScreen extends StatelessWidget {
           const SizedBox(height: 16),
           _buildContactCard(Icons.phone, 'Call Us', '+233 59 859 9687'),
           const SizedBox(height: 12),
-          _buildContactCard(Icons.email, 'Email Us', 'info@esiarkomall.com'),
+          _buildContactCard(Icons.email, 'Email Us', 'info@Eckintoshmall.com'),
         ],
       ),
     );
