@@ -13,6 +13,7 @@ class OrderService {
   final http.Client _client;
 
   Future<AppOrder> createOrder({
+    required String idToken,
     required String customerName,
     required String customerPhone,
     required List<CartItem> items,
@@ -23,7 +24,10 @@ class OrderService {
     final response = await _client
         .post(
           Uri.parse('${AppConfig.apiBaseUrl}/orders'),
-          headers: const {'Content-Type': 'application/json'},
+          headers: {
+            'Content-Type': 'application/json',
+            'Authorization': 'Bearer $idToken',
+          },
           body: jsonEncode({
             'customerName': customerName,
             'customerPhone': customerPhone,

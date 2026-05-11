@@ -18,6 +18,10 @@ export default function OrderDetailPage({ params }: { params: Promise<{ id: stri
   const [order, setOrder] = useState<any>(null);
   const [loading, setLoading] = useState(true);
   const [updating, setUpdating] = useState(false);
+  const [updateMessage, setUpdateMessage] = useState<{
+    tone: 'success' | 'warning' | 'error';
+    text: string;
+  } | null>(null);
 
   useEffect(() => {
     fetch(`/api/admin/orders/${id}`)
@@ -27,11 +31,41 @@ export default function OrderDetailPage({ params }: { params: Promise<{ id: stri
 
   const updateStatus = async (status: string) => {
     setUpdating(true);
-    await fetch(`/api/admin/orders/${id}`, {
+    setUpdateMessage(null);
+    const response = await fetch(`/api/admin/orders/${id}`, {
       method: 'PATCH',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ status }),
     });
+    const payload = await response.json();
+
+    if (!response.ok) {
+      setUpdateMessage({
+        tone: 'error',
+        text: payload.error ?? 'We could not update the order status.',
+      });
+      setUpdating(false);
+      return;
+    }
+
+    const emailNotification = payload.emailNotification;
+    if (emailNotification) {
+      setUpdateMessage({
+        tone:
+          emailNotification.status === 'sent'
+            ? 'success'
+            : emailNotification.status === 'failed'
+                ? 'error'
+                : 'warning',
+        text: emailNotification.message,
+      });
+    } else {
+      setUpdateMessage({
+        tone: 'success',
+        text: 'Order status updated.',
+      });
+    }
+
     const d = await fetch(`/api/admin/orders/${id}`).then((r) => r.json());
     setOrder(d.order);
     setUpdating(false);
@@ -75,6 +109,37 @@ export default function OrderDetailPage({ params }: { params: Promise<{ id: stri
           <StatusIcon size={16} /> {order.status}
         </span>
       </div>
+
+      {updateMessage && (
+        <div style={{
+          marginBottom: '20px',
+          padding: '14px 16px',
+          borderRadius: '10px',
+          border: '1px solid',
+          borderColor:
+            updateMessage.tone === 'success'
+              ? 'rgba(74,222,128,0.35)'
+              : updateMessage.tone === 'error'
+                  ? 'rgba(248,113,113,0.35)'
+                  : 'rgba(250,204,21,0.35)',
+          backgroundColor:
+            updateMessage.tone === 'success'
+              ? 'rgba(74,222,128,0.08)'
+              : updateMessage.tone === 'error'
+                  ? 'rgba(248,113,113,0.08)'
+                  : 'rgba(250,204,21,0.08)',
+          color:
+            updateMessage.tone === 'success'
+              ? '#4ade80'
+              : updateMessage.tone === 'error'
+                  ? '#f87171'
+                  : '#facc15',
+          fontSize: '13px',
+          fontWeight: 600,
+        }}>
+          {updateMessage.text}
+        </div>
+      )}
 
       {/* Progress stepper (not shown for CANCELLED) */}
       {order.status !== 'CANCELLED' && (

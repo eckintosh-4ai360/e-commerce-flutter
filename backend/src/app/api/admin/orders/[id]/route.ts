@@ -1,3 +1,4 @@
+import { sendOrderStatusUpdateEmail } from '@/lib/order-status-email';
 import { errorResponse, jsonResponse, optionsResponse } from '@/lib/http';
 import { getPrisma } from '@/lib/prisma';
 
@@ -57,13 +58,39 @@ export async function PATCH(
 
   const existing = await prisma.order.findUnique({ where: { id } });
   if (!existing) return errorResponse('Order not found.', 404);
+  if (existing.status === status) {
+    return jsonResponse({
+      message: 'Order status was already set to that value.',
+      status: existing.status,
+      emailNotification: {
+        status: 'skipped',
+        message: 'No email sent because the order status did not change.',
+      },
+    });
+  }
 
   const order = await prisma.order.update({
     where: { id },
     data: { status },
+    include: {
+      items: {
+        include: {
+          product: true,
+        },
+      },
+    },
   });
 
-  return jsonResponse({ message: 'Order status updated.', status: order.status });
+  const emailNotification = await sendOrderStatusUpdateEmail({
+    order,
+    previousStatus: existing.status,
+  });
+
+  return jsonResponse({
+    message: 'Order status updated.',
+    status: order.status,
+    emailNotification,
+  });
 }
 
 export function OPTIONS() {
